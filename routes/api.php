@@ -21,7 +21,8 @@ Route::middleware('api')->group(function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'throttle:15,1']] ,function () {
-    Route::apiResource('interactions', InteractionController::class);
+    Route::post('interactions/{id}', [InteractionController::class,'update'])->name('interactions.update');
+    Route::apiResource('interactions', InteractionController::class)->except('interactions.update');
     Route::post('simulate-interaction/{label}', [InteractionReportController::class, 'simulateInteraction'])->name('report.simulate-interaction');
     Route::get('interaction-stats', [InteractionReportController::class, 'interactionStats'])->name('report.interaction-stats');
     Route::get('user-interaction-stats', [InteractionReportController::class, 'userInteractionStats'])->name('report.user-interaction-stats');

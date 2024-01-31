@@ -30,15 +30,11 @@ class InteractionController extends Controller
         return Interaction::findOrFail($interaction->id);
     }
 
-    public function update(InteractionRequest $request, $interaction)
+    public function update(InteractionRequest $request, $id)
     {
         $validated = $request->validated();
-        if (isset($interaction)) {
-            Interaction::updateOrCreate(["id" => $interaction->id], $validated);
+            Interaction::updateOrCreate(["id" => $id], $validated);
             return response(["message" => "Interaction updated successfully"], 200);
-        } else {
-            return response(["message" => "Interaction does not exist"], 422);
-        }
     }
 
     public function destroy(Interaction $interaction)
